@@ -1,11 +1,10 @@
 
 ##=====Follicular fluid=====PCOS project=============================================================
-
 # Indira Pla Parada 
 
 #====INSTALL PACKAGES================================================================================
 
-# Lista de paquetes de funciones a instalar
+# List of packages to install
 .packages = c("BiocManager","devtools","ggplot2","ggbiplot", "pca3d","pcadapt","outliers","igraph",
               "rgl","graphics","reshape2","dplyr","ggpubr","remotes",
               "FactoMineR", "factoextra","corrplot","ggpubr","fpc", "NbClust","mixOmics", 
@@ -13,7 +12,7 @@
               "GOsummaries","randomcoloR","parallel","doParallel","afex","ggbeeswarm",
               "emmeans","psych", "pheatmap","lmerTest","nlme","Seurat","proBatch")
 #"RFunrichWebService",
-# Instala los paquetes sin? los tienes instalados
+# Install packages if not installed
 .inst <- .packages %in% installed.packages()
 if(length(.packages[!.inst]) > 0) {install.packages(.packages[!.inst])
   install_github("vqv/ggbiplot")
@@ -22,13 +21,14 @@ if(length(.packages[!.inst]) > 0) {install.packages(.packages[!.inst])
   devtools::install_github('symbioticMe/proBatch', build_vignettes = TRUE)
 }
 
-# Carga los paquetes sin? los tienes cargados
+# Loading packages
 lapply(.packages, require, character.only=TRUE)
 
 
 #=========================FUNCTIONS======================================================
 
 # -------Data filtering -----------------
+# This function filters proteins based on the amoung of missing values per sample/condition
 
 filter_valids = function(df, conditions, min_count, at_least_one = FALSE) {
   # df = data frame containing LOG2 data for filtering and organized by data type
@@ -133,6 +133,7 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   }
 }
 
-# -------Coeficient of variation-----------------------------------
+# -------Coeficient of variation (CV)-----------------------------------
+# calculate CV
 
 CV <- function(x){sd(x)/mean(x)*100}
